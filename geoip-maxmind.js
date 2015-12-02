@@ -30,7 +30,7 @@ http.createServer(function (request, response) {
 
 		// If the lookup fails, use fixed IP -- Usually fails when using private IP on local enviroment 	
 		if (typeof iplookup == 'undefined' || iplookup == null){
-			ip = "200.42.143.3"
+			ip = "69.171.224.1"
 			iplookup = reader.lookup(ip);
 		};
 
@@ -41,15 +41,6 @@ http.createServer(function (request, response) {
 		city = iplookup['city']['names']['es'];
 		latitude = iplookup['location']['latitude'];
 		longitude = iplookup['location']['longitude'];
-
-		// Rewrite variables to match taste	
-		if ( city == 'Baires' ){
-			city = "Buenos Aires"
-		};
-		
-		if ( region == 'Buenos Aires C.F.' ){
-			region = "Distrito Federal"
-		};
 
 		
 		// Map Maxmind DB to IP2LOC standard -- to maintain compatibility with old service

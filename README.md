@@ -12,3 +12,10 @@ Gives JSON results as this one:
   longitude: -122.1781
   }
 ```
+
+Try it easily with Docker (example):
+
+```
+> docker pull supermasita/geoip-maxmind
+> docker run -d -p 80:80 -p 8080:8080 --name="geoip" --hostname="geoip" -t supermasita/geoip-maxmind
+```

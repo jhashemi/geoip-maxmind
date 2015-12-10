@@ -34,7 +34,7 @@ http.createServer(function (request, response) {
 			iplookup = reader.lookup(ip);
 		};
 
-		//
+		// Beautify
 		country_short = iplookup['country']['iso_code']; 
 		country_long = iplookup['country']['names']['es'];
 		region = iplookup.subdivisions[0].names['es'];

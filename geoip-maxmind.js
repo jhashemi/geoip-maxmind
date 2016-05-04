@@ -1,4 +1,4 @@
-r http = require('http');
+var http = require('http');
 var crypto = require('crypto');
 var MMDBReader = require('mmdb-reader');
 

@@ -1,6 +1,9 @@
-var http = require('http');
+r http = require('http');
 var crypto = require('crypto');
 var MMDBReader = require('mmdb-reader');
+
+// Language selection - "en", "es", etc.
+language = "en"; 
 
 // Maxmind DB
 var reader = new MMDBReader('/usr/local/share/GeoIP/GeoLite2-City.mmdb');
@@ -16,7 +19,6 @@ http.createServer(function (request, response) {
 
         	                        });
         	response.end("I'm alive!");
-        	console.log("I'm alive!");
 	}
 	// IP geolocalization
 	else if (request.url == "/"){
@@ -34,13 +36,47 @@ http.createServer(function (request, response) {
 			iplookup = reader.lookup(ip);
 		};
 
-		// Beautify, please
-		country_short = iplookup['country']['iso_code']; 
-		country_long = iplookup['country']['names']['es'];
-		region = iplookup.subdivisions[0].names['es'];
-		city = iplookup['city']['names']['es'];
-		latitude = iplookup['location']['latitude'];
-		longitude = iplookup['location']['longitude'];
+		// Iso Code
+		if (typeof iplookup['country']['iso_code'] == 'undefined' || iplookup['country']['iso_code'] == null){
+                        country_short = null;
+                } else {
+                        country_short = iplookup['country']['iso_code'];
+                };
+		
+		// Country name
+		if (typeof iplookup['country']['names'][language] == 'undefined' || iplookup['country']['names'][language] == null){
+			country_long = null;
+		} else {
+			country_long = iplookup['country']['names'][language];	
+		};
+
+		// Region
+		if (typeof iplookup.subdivisions == 'undefined' || iplookup.subdivisions == null){
+			region = null;
+		} else {
+			region = region = iplookup.subdivisions[0].names[language];
+		};
+
+		// City
+		if (typeof iplookup['city'] == 'undefined' || iplookup['city'] == null ){
+			 city = null;
+		} else {
+			city = iplookup['city']['names'][language];
+		};
+
+		// Latitude
+		if (typeof iplookup['location']['latitude'] == 'undefined' || iplookup['location']['latitude'] == null){
+			latitude = null;
+		} else {
+			latitude = iplookup['location']['latitude'];
+		};
+
+		// Longitude
+		if (typeof iplookup['location']['longitude'] == undefined || iplookup['location']['longitude'] == null){
+			longitude = null;
+		} else {
+			longitude = iplookup['location']['longitude'];
+		};
 
 		
 		// Map Maxmind DB to IP2LOC standard -- to maintain compatibility with old service
@@ -75,4 +111,3 @@ http.createServer(function (request, response) {
 }).listen(8080);
 
 console.log('Server started');
-

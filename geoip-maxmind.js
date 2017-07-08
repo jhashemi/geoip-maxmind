@@ -26,7 +26,7 @@ app.get("/",
         // Use other header is behind proxy
         //var ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress || request.socket.remoteAddress || request.connection.socket.remoteAddress;
         var ip = request.query.ip;
-        
+        console.log("getting ip: " + ip || "unknown");
         // Lookup IP in Maxmind DB
       var  iplookup = reader.lookup(ip);
 

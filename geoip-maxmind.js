@@ -99,7 +99,7 @@ app.get("/",
                 'ETag': crypto.createHash('md5').update(json).digest("hex"),
 
             });
-        response.send(json);
+        response.end(json);
 
         //
 

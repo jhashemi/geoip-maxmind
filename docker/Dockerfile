@@ -20,7 +20,7 @@ RUN rm -rf /var/cache/yum/* && yum clean all
 ## JS APP
 RUN mkdir /usr/local/share/GeoIP/ && cd /usr/local/share/GeoIP/ && curl -O "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz" 2>&1 && gunzip GeoLite2-City.mmdb.gz
 RUN cd /opt/ && git clone https://github.com/supermasita/geoip-maxmind.git
-RUN cd /opt/geoip-maxmind && npm install mmdb-reader && npm install pm2 -g   
+RUN cd /opt/geoip-maxmind && npm install mmdb-reader && npm install pm2 -g && npm install express
 
 ## Varnish
 COPY default.vcl /etc/varnish/default.vcl
